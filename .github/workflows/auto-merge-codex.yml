@@ -3,7 +3,7 @@ name: Auto merge Codex PRs
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
 
 permissions:
   contents: write
@@ -11,9 +11,10 @@ permissions:
 
 jobs:
   enable-auto-merge:
-    if: |
-      github.actor == 'codex' ||
-      contains(github.event.pull_request.title, 'knowledge note')
+    if: >
+      github.event.pull_request.base.ref == 'master' &&
+      !github.event.pull_request.draft &&
+      contains(github.event.pull_request.labels.*.name, 'codex-auto-merge')
     runs-on: ubuntu-latest
 
     steps:
@@ -24,4 +25,5 @@ jobs:
           gh pr merge "${{ github.event.pull_request.number }}" \
             --auto \
             --squash \
+            --delete-branch \
             --repo "${{ github.repository }}"

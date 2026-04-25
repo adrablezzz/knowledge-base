@@ -9,9 +9,28 @@ Create a new branch.
 
 Commit the changes.
 
-Open a pull request to main with:
+Open a pull request to `master` with:
 title: add knowledge note: <title>
 body:
 - source URL
 - generated markdown path
 - summary of changes
+label:
+- codex-auto-merge
+
+## Codex Cloud auto-merge
+
+Codex Cloud PRs are auto-merged only when all of these are true:
+
+- the PR targets `master`
+- the PR is not a draft
+- the PR has the `codex-auto-merge` label
+- the `Markdown basic / validate` check passes
+
+Repository settings that must be enabled in GitHub:
+
+- Settings > General > Pull Requests > Allow auto-merge
+- Settings > General > Pull Requests > Allow squash merging
+- Settings > Actions > General > Workflow permissions > Read and write permissions
+- Protect `master` with a branch rule or ruleset that requires `Markdown basic / validate`
+- Create the label `codex-auto-merge`
