@@ -36,11 +36,22 @@ Do NOT produce generic summaries.
 
 Save output as:
 
-/articles/YYYY/MM/<slug>.md
+/articles/YYYY/MM/<中文主题短标题>.md
 
 Example:
 
-/articles/2026/04/openai-codex-agents.md
+/articles/2026/04/AI代理正在改变软件开发.md
+
+Filename rules:
+
+- Generate a concise Chinese topic title as the filename
+- The filename must summarize the article's core topic or main conclusion
+- Prefer 8-20 Chinese characters
+- Do NOT use URL IDs, WeChat random IDs, tracking parameters, hashes, or opaque source identifiers as the filename
+- Do NOT create filenames like `wechat-qiqjb3arva5miv92wtq5mq.md`
+- If the original title is vague, clickbait, or too generic, create a clearer filename from the article summary
+- Remove filesystem-invalid characters: `\ / : * ? " < > |`
+- If a filename already exists, make it more specific or append `-2`
 
 ---
 
