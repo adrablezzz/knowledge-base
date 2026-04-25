@@ -42,7 +42,7 @@ jobs:
               "status",
               "confidence",
           }
-          required_sections = [
+          old_required_sections = [
               "# Summary",
               "# Why It Matters",
               "# Key Ideas",
@@ -52,6 +52,14 @@ jobs:
               "# My Take",
               "# Action Items",
               "# Source",
+          ]
+          new_required_sections = [
+              "# TL;DR",
+              "# Core Insight",
+              "# Why It Matters",
+              "# My Take",
+              "# Connections",
+              "# References",
           ]
           path_pattern = re.compile(r"^articles/\d{4}/(0[1-9]|1[0-2])/[^/\\]+\.md$")
           invalid_filename_chars = set('\\/:*?"<>|')
@@ -112,13 +120,24 @@ jobs:
                   errors.append("frontmatter missing keys: " + ", ".join(missing_keys))
 
               body = "\n".join(lines[end + 1 :])
-              missing_sections = [
+              old_missing_sections = [
                   section
-                  for section in required_sections
+                  for section in old_required_sections
                   if not re.search(rf"^{re.escape(section)}\s*$", body, re.MULTILINE)
               ]
-              if missing_sections:
-                  errors.append("missing sections: " + ", ".join(missing_sections))
+              new_missing_sections = [
+                  section
+                  for section in new_required_sections
+                  if not re.search(rf"^{re.escape(section)}\s*$", body, re.MULTILINE)
+              ]
+              if old_missing_sections and new_missing_sections:
+                  errors.append(
+                      "missing required article sections for both accepted templates; "
+                      "old template missing: "
+                      + ", ".join(old_missing_sections)
+                      + "; new template missing: "
+                      + ", ".join(new_missing_sections)
+                  )
 
               if "\t" in text:
                   errors.append("tabs are not allowed in article markdown")
