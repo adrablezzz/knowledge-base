@@ -129,7 +129,11 @@ Generate 2-3 thoughtful observations as if I were building companies/investing.
 "add knowledge note: {{article title}}"
 
 - Include source URL, generated markdown path, and summary of changes in the pull request body
-- Add the `codex-auto-merge` label when the note is safe to merge automatically
+- Include this exact line in the pull request body:
+
+"Please add label: codex-auto-merge"
+
+- If the pull request tool supports labels, also add the `codex-auto-merge` label directly
 
 ---
 

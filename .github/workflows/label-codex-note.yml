@@ -1,0 +1,43 @@
+name: Label Codex note PRs
+
+on:
+  pull_request_target:
+    types: [opened, edited, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+  issues: write
+
+jobs:
+  add-label:
+    if: >
+      github.event.pull_request.base.ref == 'master' &&
+      !github.event.pull_request.draft &&
+      startsWith(github.event.pull_request.title, 'add knowledge note:') &&
+      contains(github.event.pull_request.body || '', 'Please add label: codex-auto-merge')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add auto-merge label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const label = 'codex-auto-merge';
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.pull_request.number;
+
+            try {
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number,
+                labels: [label],
+              });
+            } catch (error) {
+              if (error.status === 404) {
+                core.setFailed(`Label "${label}" does not exist. Create it in the repository first.`);
+                return;
+              }
+              throw error;
+            }
