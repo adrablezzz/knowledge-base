@@ -36,7 +36,7 @@ codex：
     0. 确认git tree提交干净
     1. /plan 模式，与 agent 讨论需求，制定计划
     2. 审查计划，提出修改意见，确认完毕后开始实现
-    3. 审查代码，有问题的再次提出修改，方向偏离太大则redo，直到审查通过后提交git。
+    3. 审查代码，有问题的再次提出修改，方向偏离太大则redo，直到审查通过。
     4. 循环0-3, 直到需求完成。
 
 ### open-ai生态使用
@@ -46,7 +46,7 @@ codex：
 
 ### anthropic生态使用
 1. claude：免费的额度受限，主要用来写/优化agent skill和agent文档。
-2. claude design: claude的UI设计规范，让agent严格要求设计规范生成UI可视化代码。web-design-engineer/
+2. claude design: claude的UI设计规范，可以让claude code、codex或者其它ai使用，快速生成效果预览图。web-design-engineer/
 
 ## 案例：个人知识库搭建——以codex cloud为基础
 1. 需求场景：
@@ -57,3 +57,6 @@ codex：
 3. 流程：
     用户输入：总结文章 <url> -> agent总结文章并写入 -> 提交pr -> github actions自动合并 -> obsidian查看
 4. 详情： Codex云端个人知识库搭建指南.md
+
+## 我的总结
+AI编程最重要的是写文档，.md是AI的通用语言
